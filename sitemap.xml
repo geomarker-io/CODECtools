@@ -7,7 +7,10 @@
     <loc>http://geomarker.io/CODECtools/LICENSE.html</loc>
   </url>
   <url>
-    <loc>http://geomarker.io/CODECtools/articles/codec.html</loc>
+    <loc>http://geomarker.io/CODECtools/articles/codec-data.html</loc>
+  </url>
+  <url>
+    <loc>http://geomarker.io/CODECtools/articles/codec-metadata.html</loc>
   </url>
   <url>
     <loc>http://geomarker.io/CODECtools/articles/index.html</loc>
@@ -32,6 +35,9 @@
   </url>
   <url>
     <loc>http://geomarker.io/CODECtools/reference/add_type_attrs.html</loc>
+  </url>
+  <url>
+    <loc>http://geomarker.io/CODECtools/reference/codec_names.html</loc>
   </url>
   <url>
     <loc>http://geomarker.io/CODECtools/reference/get_descriptors.html</loc>
