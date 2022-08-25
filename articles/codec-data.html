@@ -80,13 +80,67 @@
     
     
 <div class="section level2">
-<h2 id="codec-data-specifications">CODEC Data Specifications<a class="anchor" aria-label="anchor" href="#codec-data-specifications"></a>
+<h2 id="codec-data-specification">CODEC Data Specification<a class="anchor" aria-label="anchor" href="#codec-data-specification"></a>
 </h2>
+<div class="section level3">
+<h3 id="language">Language<a class="anchor" aria-label="anchor" href="#language"></a>
+</h3>
+<p>The keywords “MUST”, “MUST NOT”, “SHOULD”, “SHOULD NOT”, and “MAY” in this document are to be interpreted as described in <a href="https://tools.ietf.org/html/rfc2119" class="external-link">RFC 2119</a>.</p>
+</div>
+<div class="section level3">
+<h3 id="file-formats">File Formats<a class="anchor" aria-label="anchor" href="#file-formats"></a>
+</h3>
+<p>A CODEC <code>tabular-data-resource</code> (i.e., <code>tdr</code>) consists of a directory that MUST contain exactly one data (CSV) file and exactly one metadata file (<code>tabular-data-resource.yaml</code>). For example,</p>
+<pre><code>mydata
+├── mydata.csv
+└── tabular-data-resource.yaml</code></pre>
+<p>The metadata file MUST be a valid YAML file named <code>tabular-data-resource.yaml</code>.</p>
+<p>The name of the directory and the name of the CSV file containing the data MUST match the <code>name</code> <em>descriptor</em> in the metadata.</p>
+<p>For both files,<br>
+- the file encoding MUST be UTF-8<br>
+- newlines MUST be encoded with either <code>\n</code> or <code>\r\n</code><br>
+- the newline style SHOULD be consistent within a file<br>
+- there SHOULD be a newline at the end of the file</p>
+</div>
+<div class="section level3">
+<h3 id="missing-values">Missing Values<a class="anchor" aria-label="anchor" href="#missing-values"></a>
+</h3>
+<p>If a value is missing, it MUST be represented by either <code>NA</code> or an empty string (``) in the CSV data file.</p>
+</div>
+<div class="section level3">
+<h3 id="census-tract-geography">Census Tract Geography<a class="anchor" aria-label="anchor" href="#census-tract-geography"></a>
+</h3>
+<p>A <a href="https://www2.census.gov/geo/pdfs/education/CensusTracts.pdf" class="external-link">census tract</a> column MUST be specified in metadata and named <code>census_tract_id_{year}</code>, where <code>{year}</code> is replaced with the decennial vintage of the census tract geographies used to create the dataset (e.g., <code>census_tract_id_2010</code> or <code>census_tract_id_2020</code>).</p>
+<p>The census tract identifier column MUST contain 11-digit <a href="https://www.census.gov/programs-surveys/geography/guidance/geo-identifiers.html" class="external-link">GEOID</a> identifiers for <em>all</em> census tracts in Hamilton County (GEOID: 39061). A list of required census tract identifiers for 2000, 2010, and 2020 are available in the {{<a href="https://github.com/geomarker-io/cincy" class="external-link">cincy</a>}} R package (e.g., <code><a href="https://rdrr.io/pkg/cincy/man/Tracts.html" class="external-link">cincy::tract_tigris_2010</a></code>).</p>
+<p>A CODEC <code>tdr</code> that was <em>not</em> created at a census tract level SHOULD link to a URL that contains code and a descriptive README file about how the data was harmonized (e.g., areal interpolation) with census tract geographies.</p>
+</div>
+<div class="section level3">
+<h3 id="timing">Timing<a class="anchor" aria-label="anchor" href="#timing"></a>
+</h3>
+</div>
+</div>
+<div class="section level2">
+<h2 id="notes">Notes<a class="anchor" aria-label="anchor" href="#notes"></a>
+</h2>
+<div class="section level3">
+<h3 id="why-csv">Why CSV?<a class="anchor" aria-label="anchor" href="#why-csv"></a>
+</h3>
+<p>Although the CSV file format is relatively inefficient, it is an open, well-known, widely supported, text-based, universal format ideal for interoperability.</p>
+</div>
+<div class="section level3">
+<h3 id="data-location">Data Location<a class="anchor" aria-label="anchor" href="#data-location"></a>
+</h3>
 <ul>
-<li>a <a href="https://www2.census.gov/geo/pdfs/education/CensusTracts.pdf" class="external-link">census tract</a> column must be specified in metadata and named <code>census_tract_id_{year}</code>, where <code>{year}</code> is replaced with the decennial vintage of the census tract geographies used to create the dataset (e.g., <code>census_tract_id_2010</code> or <code>census_tract_id_2020</code>)</li>
+<li>AWS Simple Storage Service (S3) is a cloud-based centralized storage area and CODEC data are located in a public bucket: <a href="https://codec-data.s3.amazonaws.com/" class="external-link"><code>s3://codec-data/</code></a>
+<ul>
+<li><a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/Versioning.html" class="external-link">bucket versioning</a></li>
+</ul>
+</li>
 </ul>
 </div>
-  </main>
+</div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
