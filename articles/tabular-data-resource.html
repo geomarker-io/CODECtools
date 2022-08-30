@@ -81,6 +81,7 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/geomarker-io/CODECtools" class="external-link">CODECtools</a></span><span class="op">)</span></span></code></pre></div>
+<p>Inside R, metadata lives in the attributes of the data.frame and its columns. We can add and change these with several helper functions used in the example below: <code><a href="../reference/add_attrs.html">add_attrs()</a></code>, <code><a href="../reference/add_attrs.html">add_col_attrs()</a></code>, <code><a href="../reference/add_type_attrs.html">add_type_attrs()</a></code>. Using these functions to set attributes in R means we can do so reproducibly and changes to the metadata are tracked alongside the R script that creates the data. This prevents a disconnect between data and metadata, but also allows for computing on the metadata to use it to create richer documentation. <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Alternatively, we can edit the metadata yaml file directly and track changes there. Reading the data CSV file back in to R using a function that also reads metadata (&lt;code&gt;&lt;a href="../reference/read_tdr_csv.html"&gt;read_tdr_csv()&lt;/a&gt;&lt;/code&gt;) will update the attributes of the data.frame based on changes in the metadata file.&lt;/p&gt;'><sup>1</sup></a></p>
 <div class="section level2">
 <h2 id="creating-data">Creating Data<a class="anchor" aria-label="anchor" href="#creating-data"></a>
 </h2>
@@ -155,13 +156,14 @@
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> read in data from <span style="color: #0000BB;">mydata/mydata.csv</span></span></span>
 <span><span class="co">#&gt; Warning: Outer names are only allowed for unnamed scalar atomic inputs</span></span>
 <span><span class="va">mydata</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 7</span></span></span>
-<span><span class="co">#&gt;   id    date       measure rating ranking impt  field</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> A01   2022-07-25    12.8 good        14 FALSE A01  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> A02   2018-07-10    13.9 best        17 TRUE  A02  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> A03   2013-08-15    15.6 best        19 TRUE  A03</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 6</span></span></span>
+<span><span class="co">#&gt;   id    date       measure rating ranking impt </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> A01   2022-07-25    12.8 good        14 FALSE</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> A02   2018-07-10    13.9 best        17 TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> A03   2013-08-15    15.6 best        19 TRUE</span></span></code></pre></div>
 </div>
+
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
 </div>
