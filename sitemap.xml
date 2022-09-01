@@ -40,7 +40,10 @@
     <loc>http://geomarker.io/CODECtools/reference/codec_names.html</loc>
   </url>
   <url>
-    <loc>http://geomarker.io/CODECtools/reference/get_descriptors.html</loc>
+    <loc>http://geomarker.io/CODECtools/reference/glimpse_attr.html</loc>
+  </url>
+  <url>
+    <loc>http://geomarker.io/CODECtools/reference/glimpse_schema.html</loc>
   </url>
   <url>
     <loc>http://geomarker.io/CODECtools/reference/index.html</loc>

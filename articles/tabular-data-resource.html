@@ -111,8 +111,32 @@
 <span>  <span class="op">)</span></span></code></pre></div>
 <p>Note that this doesn’t change any of the data values. In R, an object’s attributes are stored with it as a list. Some attributes (<code><a href="https://rdrr.io/r/base/attributes.html" class="external-link">?attributes</a></code>) are treated specially by R (e.g., <code>class</code>, <code>names</code>, <code>row.names</code>, <code>comment</code>) and usually shouldn’t be modified. Although <em>all</em> attributes (including the ones we added above) are available as a list (<code><a href="https://rdrr.io/r/base/attributes.html" class="external-link">?attributes</a></code>), we can use a function to extract only the attributes that represent metadata descriptors as a tibble.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## get_descriptors(d) |&gt;</span></span>
-<span>  <span class="co">## knitr::kable()</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/glimpse_attr.html">glimpse_attr</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">name</th>
+<th align="left">value</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">name</td>
+<td align="left">mydata</td>
+</tr>
+<tr class="even">
+<td align="left">title</td>
+<td align="left">My Data</td>
+</tr>
+<tr class="odd">
+<td align="left">url</td>
+<td align="left"><a href="https://geomarker.io/CODECtools" class="external-link uri">https://geomarker.io/CODECtools</a></td>
+</tr>
+<tr class="even">
+<td align="left">license</td>
+<td align="left">MIT</td>
+</tr>
+</tbody>
+</table>
 <p>Similarly, we can add column-specific attributes (i.e., “schema”). These metadata functions follow the tidy design principles, making it simple to expressively and concisely add metadata using pipes:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span></span>
@@ -126,10 +150,63 @@
 <p>Automatically add <code>name</code>, <code>type</code> and <code>enum</code> schema to each column in the data based on their class:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_type_attrs.html">add_type_attrs</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span></code></pre></div>
-<p>Like for descriptors, there is a helper function to retrieve schema as a tibble. Specify <code>bind = TRUE</code> to combine the list of column-specific attribute data frames for each column into one wider data frame:</p>
+<p>Like for descriptors, there is a helper function to retrieve schema as a tibble:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## get_schema(d, bind = TRUE) |&gt;</span></span>
-<span>  <span class="co">## knitr::kable()</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/glimpse_schema.html">glimpse_schema</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">name</th>
+<th align="left">title</th>
+<th align="left">description</th>
+<th align="left">type</th>
+<th align="left">constraints</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">id</td>
+<td align="left">Identifier</td>
+<td align="left">unique identifier</td>
+<td align="left">string</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">date</td>
+<td align="left">Date</td>
+<td align="left">date of observation</td>
+<td align="left">date</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">measure</td>
+<td align="left">Measure</td>
+<td align="left">measured quantity</td>
+<td align="left">number</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">rating</td>
+<td align="left">Rating</td>
+<td align="left">ordered ranking of observation</td>
+<td align="left">string</td>
+<td align="left">good, better, best</td>
+</tr>
+<tr class="odd">
+<td align="left">ranking</td>
+<td align="left">Ranking</td>
+<td align="left">rank of the observation</td>
+<td align="left">integer</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">impt</td>
+<td align="left">Important</td>
+<td align="left">true if this observation is important</td>
+<td align="left">boolean</td>
+<td align="left">NA</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section level2">
 <h2 id="writing-a-tabular-data-resource-to-disk">Writing a tabular-data-resource to disk<a class="anchor" aria-label="anchor" href="#writing-a-tabular-data-resource-to-disk"></a>

@@ -82,11 +82,9 @@
 <div class="section level2">
 <h2 id="codec-data-specification">CODEC Data Specification<a class="anchor" aria-label="anchor" href="#codec-data-specification"></a>
 </h2>
-<div class="section level3">
-<h3 id="language">Language<a class="anchor" aria-label="anchor" href="#language"></a>
-</h3>
-<p>The keywords “MUST”, “MUST NOT”, “SHOULD”, “SHOULD NOT”, and “MAY” in this document are to be interpreted as described in <a href="https://tools.ietf.org/html/rfc2119" class="external-link">RFC 2119</a>.</p>
-</div>
+<blockquote>
+<p><em>Language:</em> The keywords “MUST”, “MUST NOT”, “SHOULD”, “SHOULD NOT”, and “MAY” in this document are to be interpreted as described in <a href="https://tools.ietf.org/html/rfc2119" class="external-link">RFC 2119</a>.</p>
+</blockquote>
 <div class="section level3">
 <h3 id="file-formats">File Formats<a class="anchor" aria-label="anchor" href="#file-formats"></a>
 </h3>
@@ -95,12 +93,9 @@
 ├── mydata.csv
 └── tabular-data-resource.yaml</code></pre>
 <p>The metadata file MUST be a valid YAML file named <code>tabular-data-resource.yaml</code>.</p>
-<p>The name of the directory and the name of the CSV file containing the data MUST match the <code>name</code> <em>descriptor</em> in the metadata.</p>
+<p>The name of the directory and the name of the CSV file containing the data MUST match the <code>name</code> <a href="codec-metadata.html#descriptor"><em>descriptor</em></a> in the <a href="codec-metadata.html#codec-metadata-specifications">metadata</a>.</p>
 <p>For both files,<br>
-- the file encoding MUST be UTF-8<br>
-- newlines MUST be encoded with either <code>\n</code> or <code>\r\n</code><br>
-- the newline style SHOULD be consistent within a file<br>
-- there SHOULD be a newline at the end of the file</p>
+- the file encoding MUST be UTF-8 - newlines MUST be encoded with either <code>\n</code> or <code>\r\n</code> - the newline style SHOULD be consistent within a file - there SHOULD be a newline at the end of the file</p>
 </div>
 <div class="section level3">
 <h3 id="missing-values">Missing Values<a class="anchor" aria-label="anchor" href="#missing-values"></a>
