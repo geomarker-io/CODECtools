@@ -120,30 +120,11 @@
 <div class="section level3">
 <h3 id="tabular-data-resource-metadata">Tabular-Data-Resource Metadata<a class="anchor" aria-label="anchor" href="#tabular-data-resource-metadata"></a>
 </h3>
-<p>Within the context of CODEC, tabular-data-resouce metadata consists of <strong>descriptors</strong>, <strong>schema</strong>, and <strong>fields</strong>:</p>
+<p>A <strong>descriptor</strong> (or <a href="https://specs.frictionlessdata.io/data-resource/#metadata-properties" class="external-link">“metadata property”</a>) is a named value used to describe the data resource. The value of most <em>descriptors</em> are a single character string (e.g., <code>name = "my_data_set"</code>, <code>path = "my_data_set.csv"</code>).</p>
+<p><strong>schema</strong> (or <a href="https://specs.frictionlessdata.io/table-schema/" class="external-link">“table schema”</a>) is a special <em>descriptor</em> that stores information about the <strong>fields</strong> (or columns) within a tabular-data-resource. <em>schema</em> includes a list of <em>descriptors</em> for each <em>field</em> as well as the value used to denote missingness and which <em>fields</em> are primary or foreign keys.</p>
+<p>A tabular-data-resource (with all possible <em>descriptors</em>, <em>schema</em>, and <em>fields</em>) is hierarchically organized and can be represented in the attributes of an R tibble <em>or</em> in YAML.</p>
 <p><img src="codec_metadata.png"></p>
-<ul>
-<li>a <strong>descriptor</strong> (or <a href="https://specs.frictionlessdata.io/data-resource/#metadata-properties" class="external-link">“metadata property”</a>) is a named value stored as a string used to describe the data resource</li>
-<li>the <strong>schema</strong> (or <a href="https://specs.frictionlessdata.io/table-schema/" class="external-link">“table schema”</a>) contains information about each of the <strong>fields</strong> (or “columns”) within a tabular-data-resource
-<ul>
-<li>
-<strong>schema</strong> may optionally contain the value used to denote missingness and which fields are foreign or primary keys</li>
-</ul>
-</li>
-</ul>
-<p>The names of any <strong>descriptor</strong> <strong>schema</strong> and <strong>field</strong> values MUST be one of:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">CODECtools</span><span class="fu">::</span><span class="fu"><a href="../reference/codec_names.html">codec_names</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## $descriptor</span></span>
-<span><span class="co">## [1] "name"        "path"        "title"       "description" "url"        </span></span>
-<span><span class="co">## [6] "license"     "schema"     </span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## $schema</span></span>
-<span><span class="co">## [1] "fields"        "missingValues" "primaryKey"    "foreignKey"   </span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## $fields</span></span>
-<span><span class="co">## [1] "name"        "title"       "description" "type"        "constraints"</span></span></code></pre>
-<p>A CODEC <code>tdr</code> MUST contain <code>name</code> and <code>path</code> descriptors. All other descriptors, schema, and fields MAY be present.</p>
+<p>A CODEC tabular-data-resource MUST contain <code>name</code> and <code>path</code> descriptors. All other descriptors, schema, and fields MAY be present, but MUST be one of:</p>
 <div class="section level4">
 <h4 id="descriptor">descriptor<a class="anchor" aria-label="anchor" href="#descriptor"></a>
 </h4>
@@ -194,6 +175,18 @@
 <li>
 <code>constraints</code>: <a href="https://specs.frictionlessdata.io/table-schema/#constraints" class="external-link">Frictionless constraints</a>, including <code>enum</code>, an array of possible values or factor levels</li>
 </ul>
+<p>Valid names for descriptors, schema, and metadata can be found within CODECtools in R by using:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">CODECtools</span><span class="fu">::</span><span class="fu"><a href="../reference/codec_names.html">codec_names</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## $descriptor</span></span>
+<span><span class="co">## [1] "name"        "path"        "title"       "description" "url"        </span></span>
+<span><span class="co">## [6] "license"     "schema"     </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $schema</span></span>
+<span><span class="co">## [1] "fields"        "missingValues" "primaryKey"    "foreignKey"   </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $fields</span></span>
+<span><span class="co">## [1] "name"        "title"       "description" "type"        "constraints"</span></span></code></pre>
 </div>
 </div>
 </div>

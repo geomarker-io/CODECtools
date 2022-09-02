@@ -94,8 +94,14 @@
 └── tabular-data-resource.yaml</code></pre>
 <p>The metadata file MUST be a valid YAML file named <code>tabular-data-resource.yaml</code>.</p>
 <p>The name of the directory and the name of the CSV file containing the data MUST match the <code>name</code> <a href="codec-metadata.html#descriptor"><em>descriptor</em></a> in the <a href="codec-metadata.html#codec-metadata-specifications">metadata</a>.</p>
-<p>For both files,<br>
-- the file encoding MUST be UTF-8 - newlines MUST be encoded with either <code>\n</code> or <code>\r\n</code> - the newline style SHOULD be consistent within a file - there SHOULD be a newline at the end of the file</p>
+<p>For both files,</p>
+<ul>
+<li>the file encoding MUST be UTF-8</li>
+<li>newlines MUST be encoded with either <code>\n</code> or <code>\r\n</code>
+</li>
+<li>the newline style SHOULD be consistent within a file</li>
+<li>there SHOULD be a newline at the end of the file</li>
+</ul>
 </div>
 <div class="section level3">
 <h3 id="missing-values">Missing Values<a class="anchor" aria-label="anchor" href="#missing-values"></a>
