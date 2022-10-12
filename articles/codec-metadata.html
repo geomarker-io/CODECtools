@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">CODECtools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -80,8 +80,11 @@
     
     
 <div class="section level2">
-<h2 id="metadata">Metadata<a class="anchor" aria-label="anchor" href="#metadata"></a>
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
+<div class="section level3">
+<h3 id="metadata">Metadata<a class="anchor" aria-label="anchor" href="#metadata"></a>
+</h3>
 <p>Metadata is information <em>about</em> data, but does not contain the data itself. For example, a CSV file cannot tell R (or other software) anything about itself including:</p>
 <ul>
 <li>general information like a name, title, description, license, or related URL</li>
@@ -91,14 +94,14 @@
 </ul>
 <p>CODEC utilizes a specific set of standards to store community-level data in an effort to make them more interoperable and reusable.</p>
 </div>
-<div class="section level2">
-<h2 id="frictionless-standards">Frictionless Standards<a class="anchor" aria-label="anchor" href="#frictionless-standards"></a>
-</h2>
+<div class="section level3">
+<h3 id="frictionless-standards">Frictionless Standards<a class="anchor" aria-label="anchor" href="#frictionless-standards"></a>
+</h3>
 <p><a href="https://frictionlessdata.io/" class="external-link">Frictionless</a> standards are a set of <a href="https://specs.frictionlessdata.io/" class="external-link">patterns</a> for describing data, including datasets, files, and tables. These metadata are contained in a specific file (separate from the data file), usually written in JSON or YAML, that describes something specific to each Frictionless Standard.</p>
-<p>The CODEC metadata specifications are based on the <a href="https://specs.frictionlessdata.io/tabular-data-resource/" class="external-link">Tabular Data Resource</a> (often written as ‘tabular-data-resource’ and abbreviated throughout the package as <code>tdr</code>). A tabular-data-resource is made up of three Frictionless Standards:</p>
+<p>The CODEC metadata standards are based on the Frictionless <a href="https://specs.frictionlessdata.io/tabular-data-resource/" class="external-link">Tabular Data Resource</a> standards (often written as ‘tabular-data-resource’ and abbreviated throughout the package as <code>tdr</code>), which is composed of three Frictionless standards:</p>
 <ol style="list-style-type: decimal">
 <li>
-<a href="https://specs.frictionlessdata.io/data-resource/" class="external-link">Data Resource</a>: describes an <em>exact</em> tabular file providing a path to the file and details like name, title, description, and others</li>
+<a href="https://specs.frictionlessdata.io/data-resource/" class="external-link">Data Resource</a>: describes an exact tabular file providing a path to the file and details like name, title, description, and more</li>
 <li>
 <a href="https://specs.frictionlessdata.io/table-schema/" class="external-link">Table Schema</a>: describes a tabular file by providing its dimension, field data types, relations, and constraints</li>
 <li>
@@ -106,88 +109,158 @@
 </ol>
 <p>A tabular-data-resource consists of (1) a <em>single</em> table of data in a CSV file and (2) its metadata, represented as a hierarchical list in a specific format. On disk, this metadata is stored as a YAML file and in R, it is stored in the attributes of a data.frame (or tibble). <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;This is a good place to note that although not used here, the &lt;a href="https://specs.frictionlessdata.io/data-package/" class="external-link"&gt;Data Package&lt;/a&gt; &amp;amp; &lt;a href="https://specs.frictionlessdata.io/tabular-data-package/" class="external-link"&gt;Tabular Data Package&lt;/a&gt; are similar to the Data Resource and Tabular Data Resource, except that they describe a &lt;em&gt;collection&lt;/em&gt; of tabular files.&lt;/p&gt;'><sup>1</sup></a></p>
 </div>
+</div>
 <div class="section level2">
-<h2 id="codec-metadata-specifications">CODEC Metadata Specifications<a class="anchor" aria-label="anchor" href="#codec-metadata-specifications"></a>
+<h2 id="codec-metadata-standards">CODEC Metadata Standards<a class="anchor" aria-label="anchor" href="#codec-metadata-standards"></a>
 </h2>
 <blockquote>
 <p><em>Language:</em> The keywords “MUST”, “MUST NOT”, “SHOULD”, “SHOULD NOT”, and “MAY” in this document are to be interpreted as described in <a href="https://tools.ietf.org/html/rfc2119" class="external-link">RFC 2119</a>.</p>
 </blockquote>
-<div class="section level3">
-<h3 id="version">Version<a class="anchor" aria-label="anchor" href="#version"></a>
-</h3>
-<p>CODEC specifications are versioned according to the {CODECtools} package, so this vignette describes version 0.1. To see older versions of the specification, install an older version of {CODECtools}.</p>
-</div>
+<blockquote>
+<p>CODEC standards are versioned with {CODECtools}, so this vignette describes version 0.2.0.</p>
+</blockquote>
 <div class="section level3">
 <h3 id="tabular-data-resource-metadata">Tabular-Data-Resource Metadata<a class="anchor" aria-label="anchor" href="#tabular-data-resource-metadata"></a>
 </h3>
-<p>A <strong>descriptor</strong> (or <a href="https://specs.frictionlessdata.io/data-resource/#metadata-properties" class="external-link">“metadata property”</a>) is a named value used to describe the data resource. The value of most <em>descriptors</em> are a single character string (e.g., <code>name = "my_data_set"</code>, <code>path = "my_data_set.csv"</code>).</p>
-<p><strong>schema</strong> (or <a href="https://specs.frictionlessdata.io/table-schema/" class="external-link">“table schema”</a>) is a special <em>descriptor</em> that stores information about the <strong>fields</strong> (or columns) within a tabular-data-resource. <em>schema</em> includes a list of <em>descriptors</em> for each <em>field</em> as well as the value used to denote missingness and which <em>fields</em> are primary or foreign keys.</p>
-<p>A tabular-data-resource (with all possible <em>descriptors</em>, <em>schema</em>, and <em>fields</em>) is hierarchically organized and can be represented in the attributes of an R tibble <em>or</em> in YAML.</p>
+<p>The metadata of a CODEC tabular-data-resource is hierarchically composed of different <strong>descriptors</strong> :</p>
 <p><img src="codec_metadata.png"></p>
-<p>A CODEC tabular-data-resource MUST contain <code>name</code> and <code>path</code> descriptors. All other descriptors, schema, and fields MAY be present, but MUST be one of:</p>
-<div class="section level4">
-<h4 id="descriptor">descriptor<a class="anchor" aria-label="anchor" href="#descriptor"></a>
-</h4>
 <ul>
-<li>
-<code>name</code>: machine-friendly name of dataset; must consist of letters, numbers, and underscores (<code>_</code>)</li>
-<li>
-<code>path</code>: path to the data CSV file <em>relative to the <code>tabular-data-resource.yaml</code> file</em>
-</li>
-<li>
-<code>title</code>: human-friendly name of dataset</li>
-<li>
-<code>description</code>: any additional notes about the data</li>
-<li>
-<code>url</code>: link to repository with code and description about how the data was harmonized to census tract geographies</li>
-<li>
-<code>license</code>:</li>
-<li>
-<code>schema</code>: a list object containing the following</li>
+<li><p><strong>property</strong> (or <a href="https://specs.frictionlessdata.io/data-resource/#metadata-properties" class="external-link">“metadata property”</a>) are named values used to describe the data resource. The value of most <em>properties</em> are a single character string (e.g., <code>name = "my_data"</code>), but some are lists.</p></li>
+<li><p><strong>schema</strong> (or <a href="https://specs.frictionlessdata.io/table-schema/" class="external-link">“table schema”</a>) is a special <em>property</em> that is a list of information about the <strong>fields</strong> (or columns) in a tabular-data-resource. <em>schema</em> includes a list of <em>fields</em>, as well as the value used to denote missingness and which <em>fields</em> are primary or foreign keys.</p></li>
+<li><p><strong>fields</strong> (or <a href="https://specs.frictionlessdata.io/table-schema/#field-descriptors" class="external-link">“field descriptors”</a>) are a special <em>schema descriptor</em> that is a list of each the <em>fields</em> in a tabular-data-resource, each with different <em>descriptors</em> containing <em>field</em>-specific information.</p></li>
+<li><p><strong>dialect</strong> (or <a href="https://specs.frictionlessdata.io/csv-dialect/" class="external-link">“CSV dialect”</a>) is another special <em>property</em> that stores information about the formatting of the data CSV file. The <a href="./codec-data#codec-data-standards">CODEC data standards</a> specify that data CSV files must follow the <a href="https://www.rfc-editor.org/rfc/rfc4180" class="external-link">RFC 4180</a> standard for CSV files. Thus, the <code>dialect</code> descriptor is omitted from the CODEC tabular-data-resource standards.</p></li>
 </ul>
+<p>A CODEC tabular-data-resource MUST contain <code>name</code> and <code>path</code> descriptors. All other properties, schema, and fields MAY be present, but MUST be one of:</p>
+<pre><code><span><span class="co">## `summarise()` has grouped output by 'type'. You can override using the</span></span>
+<span><span class="co">## `.groups` argument.</span></span></code></pre>
+<table class="table">
+<colgroup>
+<col width="5%">
+<col width="8%">
+<col width="85%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">type</th>
+<th align="left">name</th>
+<th align="left">value</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">property</td>
+<td align="left">profile</td>
+<td align="left">profile of this descriptor (always set to <code>tabular-data-resource</code> here)</td>
+</tr>
+<tr class="even">
+<td align="left">property</td>
+<td align="left">name</td>
+<td align="left">an identifier string composed of lower case alphanumeric characters, <code>_</code>, <code>-</code>, and <code>.</code>
+</td>
+</tr>
+<tr class="odd">
+<td align="left">property</td>
+<td align="left">path</td>
+<td align="left">location of data associated with resource as a <a href="https://en.wikipedia.org/wiki/Path_%28computing%29#POSIX_pathname_definition" class="external-link">POSIX path</a> relative to the <code>tabular-data-resource.yaml</code> file or a fully qualified URL</td>
+</tr>
+<tr class="even">
+<td align="left">property</td>
+<td align="left">version</td>
+<td align="left">semantic <a href="https://specs.frictionlessdata.io/patterns/#data-package-version" class="external-link">version</a> of the data resource</td>
+</tr>
+<tr class="odd">
+<td align="left">property</td>
+<td align="left">title</td>
+<td align="left">human-friendly title of the resource</td>
+</tr>
+<tr class="even">
+<td align="left">property</td>
+<td align="left">homepage</td>
+<td align="left">homepage on the web related to the data; ideally a code repository used to create the data</td>
+</tr>
+<tr class="odd">
+<td align="left">property</td>
+<td align="left">description</td>
+<td align="left">additional notes about the resource</td>
+</tr>
+<tr class="even">
+<td align="left">property</td>
+<td align="left">schema</td>
+<td align="left">a list object containing items in schema</td>
+</tr>
+<tr class="odd">
+<td align="left">property</td>
+<td align="left">_s3VersionId</td>
+<td align="left">the VersionId of the file stored on AWS S3; not user-generated</td>
+</tr>
+<tr class="even">
+<td align="left">schema</td>
+<td align="left">fields</td>
+<td align="left">a list object as long as the number of fields each containing the items in fields</td>
+</tr>
+<tr class="odd">
+<td align="left">schema</td>
+<td align="left">primaryKey</td>
+<td align="left">a field or set of fields that uniquely identifies each row</td>
+</tr>
+<tr class="even">
+<td align="left">schema</td>
+<td align="left">foreignKey</td>
+<td align="left">a field or set of fields that connect to a separate table</td>
+</tr>
+<tr class="odd">
+<td align="left">schema</td>
+<td align="left">missingValues</td>
+<td align="left">a list object, one for each column, containing the following</td>
+</tr>
+<tr class="even">
+<td align="left">fields</td>
+<td align="left">name</td>
+<td align="left">machine-friendly name of field/column; must be identical to name of column in data CSV file</td>
+</tr>
+<tr class="odd">
+<td align="left">fields</td>
+<td align="left">title</td>
+<td align="left">human-friendly name of field/column</td>
+</tr>
+<tr class="even">
+<td align="left">fields</td>
+<td align="left">description</td>
+<td align="left">any additional notes about the field/column</td>
+</tr>
+<tr class="odd">
+<td align="left">fields</td>
+<td align="left">type</td>
+<td align="left">
+<a href="https://specs.frictionlessdata.io/table-schema/#types-and-formats" class="external-link">Frictionless type</a> of the field/column (e.g., string, number, boolean)</td>
+</tr>
+<tr class="even">
+<td align="left">fields</td>
+<td align="left">constraints</td>
+<td align="left">
+<a href="https://specs.frictionlessdata.io/table-schema/#constraints" class="external-link">Frictionless constraints</a>, including <code>enum</code>, an array of possible values or factor levels</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="section level4">
-<h4 id="schema">schema<a class="anchor" aria-label="anchor" href="#schema"></a>
-</h4>
-<ul>
-<li>
-<code>missingValues</code>: denotes which string values should be treated as missing; default: <code>NA</code> or empty string (``)</li>
-<li>
-<code>primaryKey</code>: a field or set of fields that uniquely identifies each row in the table</li>
-<li>
-<code>foreignKey</code>: a field or set of fields that connect to a separate table</li>
-<li>
-<code>fields</code>: a list object, one for each column, containing the following</li>
-</ul>
-</div>
-<div class="section level4">
-<h4 id="fields">fields<a class="anchor" aria-label="anchor" href="#fields"></a>
-</h4>
-<ul>
-<li>
-<code>name</code>: machine-friendly name of field/column; must be identical to name of column in data CSV file</li>
-<li>
-<code>title</code>: human-friendly name of field/column</li>
-<li>
-<code>description</code>: any additional notes about the field/column</li>
-<li>
-<code>type</code>: <a href="https://specs.frictionlessdata.io/table-schema/#types-and-formats" class="external-link">Frictionless type</a> of the field/column (e.g., string, number, boolean)</li>
-<li>
-<code>constraints</code>: <a href="https://specs.frictionlessdata.io/table-schema/#constraints" class="external-link">Frictionless constraints</a>, including <code>enum</code>, an array of possible values or factor levels</li>
-</ul>
-<p>Valid names for descriptors, schema, and metadata can be found within CODECtools in R by using:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">CODECtools</span><span class="fu">::</span><span class="fu"><a href="../reference/codec_names.html">codec_names</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## $descriptor</span></span>
-<span><span class="co">## [1] "name"        "path"        "title"       "description" "url"        </span></span>
-<span><span class="co">## [6] "license"     "schema"     </span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## $schema</span></span>
-<span><span class="co">## [1] "fields"        "missingValues" "primaryKey"    "foreignKey"   </span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## $fields</span></span>
-<span><span class="co">## [1] "name"        "title"       "description" "type"        "constraints"</span></span></code></pre>
-</div>
+<div class="section level3">
+<h3 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
+</h3>
+<p>An example CODEC tabular-data-resource looks like:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> tract_poverty</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">path</span><span class="kw">:</span><span class="at"> tract_poverty.csv</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Fraction of Census Tract Households in Poverty</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="fl">1.2.1</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> measures derived from 5-yr 2019 American Community Survey</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">schema</span><span class="kw">:</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">fields</span><span class="kw">:</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">census_tract_id</span><span class="kw">:</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">name</span><span class="kw">:</span><span class="at"> census_tract_id</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Census Tract</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">description</span><span class="kw">:</span><span class="at"> 2010 vintage census tract identifier</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">type</span><span class="kw">:</span><span class="at"> string</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">fraction_poverty</span><span class="kw">:</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">name</span><span class="kw">:</span><span class="at"> fraction_poverty</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Fraction of Households in Poverty</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">type</span><span class="kw">:</span><span class="at"> number</span></span></code></pre></div>
 </div>
 </div>
 

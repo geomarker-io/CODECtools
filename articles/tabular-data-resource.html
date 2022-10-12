@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">CODECtools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -100,14 +100,14 @@
 <div class="section level2">
 <h2 id="adding-metadata">Adding Metadata<a class="anchor" aria-label="anchor" href="#adding-metadata"></a>
 </h2>
-<p>When creating a tabular dataset in R, data-specific metadata (i.e., “descriptors”) can be stored in the attributes of the R object (e.g., a data.frame or tibble).</p>
+<p>When creating a tabular dataset in R, data-specific metadata (i.e., “properties”) can be stored in the attributes of the R object (e.g., a data.frame or tibble).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="va">d</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/add_attrs.html">add_attrs</a></span><span class="op">(</span></span>
 <span>    name <span class="op">=</span> <span class="st">"mydata"</span>,</span>
 <span>    title <span class="op">=</span> <span class="st">"My Data"</span>,</span>
-<span>    license <span class="op">=</span> <span class="st">"MIT"</span>,</span>
-<span>    url <span class="op">=</span> <span class="st">"https://geomarker.io/CODECtools"</span></span>
+<span>    version <span class="op">=</span> <span class="st">"0.1.0"</span>,</span>
+<span>    homepage <span class="op">=</span> <span class="st">"https://geomarker.io/CODECtools"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p>Note that this doesn’t change any of the data values. In R, an object’s attributes are stored with it as a list. Some attributes (<code><a href="https://rdrr.io/r/base/attributes.html" class="external-link">?attributes</a></code>) are treated specially by R (e.g., <code>class</code>, <code>names</code>, <code>row.names</code>, <code>comment</code>) and usually shouldn’t be modified. Although <em>all</em> attributes (including the ones we added above) are available as a list (<code><a href="https://rdrr.io/r/base/attributes.html" class="external-link">?attributes</a></code>), we can use a function to extract only the attributes that represent metadata descriptors as a tibble.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -124,16 +124,16 @@
 <td align="left">mydata</td>
 </tr>
 <tr class="even">
+<td align="left">version</td>
+<td align="left">0.1.0</td>
+</tr>
+<tr class="odd">
 <td align="left">title</td>
 <td align="left">My Data</td>
 </tr>
-<tr class="odd">
-<td align="left">url</td>
-<td align="left"><a href="https://geomarker.io/CODECtools" class="external-link uri">https://geomarker.io/CODECtools</a></td>
-</tr>
 <tr class="even">
-<td align="left">license</td>
-<td align="left">MIT</td>
+<td align="left">homepage</td>
+<td align="left"><a href="https://geomarker.io/CODECtools" class="external-link uri">https://geomarker.io/CODECtools</a></td>
 </tr>
 </tbody>
 </table>
@@ -152,7 +152,8 @@
 <code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_type_attrs.html">add_type_attrs</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span></code></pre></div>
 <p>Like for descriptors, there is a helper function to retrieve schema as a tibble:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/glimpse_schema.html">glimpse_schema</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>knitr.kable.NA <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/glimpse_schema.html">glimpse_schema</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
@@ -168,21 +169,21 @@
 <td align="left">Identifier</td>
 <td align="left">unique identifier</td>
 <td align="left">string</td>
-<td align="left">NA</td>
+<td align="left"></td>
 </tr>
 <tr class="even">
 <td align="left">date</td>
 <td align="left">Date</td>
 <td align="left">date of observation</td>
 <td align="left">date</td>
-<td align="left">NA</td>
+<td align="left"></td>
 </tr>
 <tr class="odd">
 <td align="left">measure</td>
 <td align="left">Measure</td>
 <td align="left">measured quantity</td>
 <td align="left">number</td>
-<td align="left">NA</td>
+<td align="left"></td>
 </tr>
 <tr class="even">
 <td align="left">rating</td>
@@ -196,14 +197,14 @@
 <td align="left">Ranking</td>
 <td align="left">rank of the observation</td>
 <td align="left">integer</td>
-<td align="left">NA</td>
+<td align="left"></td>
 </tr>
 <tr class="even">
 <td align="left">impt</td>
 <td align="left">Important</td>
 <td align="left">true if this observation is important</td>
 <td align="left">boolean</td>
-<td align="left">NA</td>
+<td align="left"></td>
 </tr>
 </tbody>
 </table>
