@@ -81,7 +81,19 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/geomarker-io/CODECtools" class="external-link">CODECtools</a></span><span class="op">)</span></span></code></pre></div>
-<p>Inside R, metadata lives in the attributes of the data.frame and its columns. We can add and change these with several helper functions used in the example below: <code><a href="../reference/add_attrs.html">add_attrs()</a></code>, <code><a href="../reference/add_attrs.html">add_col_attrs()</a></code>, <code><a href="../reference/add_type_attrs.html">add_type_attrs()</a></code>. Using these functions to set attributes in R means we can do so reproducibly and changes to the metadata are tracked alongside the R script that creates the data. This prevents a disconnect between data and metadata, but also allows for computing on the metadata to use it to create richer documentation. <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Alternatively, we can edit the metadata yaml file directly and track changes there. Reading the data CSV file back in to R using a function that also reads metadata (&lt;code&gt;&lt;a href="../reference/read_tdr_csv.html"&gt;read_tdr_csv()&lt;/a&gt;&lt;/code&gt;) will update the attributes of the data.frame based on changes in the metadata file.&lt;/p&gt;'><sup>1</sup></a></p>
+<p>Inside R, metadata lives in the attributes of the data.frame and its
+columns. We can add and change these with several helper functions used
+in the example below: <code><a href="../reference/add_attrs.html">add_attrs()</a></code>,
+<code><a href="../reference/add_attrs.html">add_col_attrs()</a></code>, <code><a href="../reference/add_type_attrs.html">add_type_attrs()</a></code>. Using these
+functions to set attributes in R means we can do so reproducibly and
+changes to the metadata are tracked alongside the R script that creates
+the data. This prevents a disconnect between data and metadata, but also
+allows for computing on the metadata to use it to create richer
+documentation. <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Alternatively, we can edit the metadata yaml file
+directly and track changes there. Reading the data CSV file back in to R
+using a function that also reads metadata (&lt;code&gt;&lt;a href="../reference/read_tdr_csv.html"&gt;read_tdr_csv()&lt;/a&gt;&lt;/code&gt;)
+will update the attributes of the data.frame based on changes in the
+metadata file.&lt;/p&gt;'><sup>1</sup></a></p>
 <div class="section level2">
 <h2 id="creating-data">Creating Data<a class="anchor" aria-label="anchor" href="#creating-data"></a>
 </h2>
@@ -100,7 +112,9 @@
 <div class="section level2">
 <h2 id="adding-metadata">Adding Metadata<a class="anchor" aria-label="anchor" href="#adding-metadata"></a>
 </h2>
-<p>When creating a tabular dataset in R, data-specific metadata (i.e., “properties”) can be stored in the attributes of the R object (e.g., a data.frame or tibble).</p>
+<p>When creating a tabular dataset in R, data-specific metadata (i.e.,
+“properties”) can be stored in the attributes of the R object (e.g., a
+data.frame or tibble).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="va">d</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/add_attrs.html">add_attrs</a></span><span class="op">(</span></span>
@@ -109,7 +123,15 @@
 <span>    version <span class="op">=</span> <span class="st">"0.1.0"</span>,</span>
 <span>    homepage <span class="op">=</span> <span class="st">"https://geomarker.io/CODECtools"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p>Note that this doesn’t change any of the data values. In R, an object’s attributes are stored with it as a list. Some attributes (<code><a href="https://rdrr.io/r/base/attributes.html" class="external-link">?attributes</a></code>) are treated specially by R (e.g., <code>class</code>, <code>names</code>, <code>row.names</code>, <code>comment</code>) and usually shouldn’t be modified. Although <em>all</em> attributes (including the ones we added above) are available as a list (<code><a href="https://rdrr.io/r/base/attributes.html" class="external-link">?attributes</a></code>), we can use a function to extract only the attributes that represent metadata descriptors as a tibble.</p>
+<p>Note that this doesn’t change any of the data values. In R, an
+object’s attributes are stored with it as a list. Some attributes
+(<code><a href="https://rdrr.io/r/base/attributes.html" class="external-link">?attributes</a></code>) are treated specially by R (e.g.,
+<code>class</code>, <code>names</code>, <code>row.names</code>,
+<code>comment</code>) and usually shouldn’t be modified. Although
+<em>all</em> attributes (including the ones we added above) are
+available as a list (<code><a href="https://rdrr.io/r/base/attributes.html" class="external-link">?attributes</a></code>), we can use a function to
+extract only the attributes that represent metadata descriptors as a
+tibble.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/glimpse_attr.html">glimpse_attr</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -137,7 +159,9 @@
 </tr>
 </tbody>
 </table>
-<p>Similarly, we can add column-specific attributes (i.e., “schema”). These metadata functions follow the tidy design principles, making it simple to expressively and concisely add metadata using pipes:</p>
+<p>Similarly, we can add column-specific attributes (i.e., “schema”).
+These metadata functions follow the tidy design principles, making it
+simple to expressively and concisely add metadata using pipes:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">d</span> <span class="op">|&gt;</span></span>
@@ -147,15 +171,25 @@
 <span>  <span class="fu"><a href="../reference/add_attrs.html">add_col_attrs</a></span><span class="op">(</span><span class="va">rating</span>, title <span class="op">=</span> <span class="st">"Rating"</span>, description <span class="op">=</span> <span class="st">"ordered ranking of observation"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/add_attrs.html">add_col_attrs</a></span><span class="op">(</span><span class="va">ranking</span>, title <span class="op">=</span> <span class="st">"Ranking"</span>, description <span class="op">=</span> <span class="st">"rank of the observation"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/add_attrs.html">add_col_attrs</a></span><span class="op">(</span><span class="va">impt</span>, title <span class="op">=</span> <span class="st">"Important"</span>, description <span class="op">=</span> <span class="st">"true if this observation is important"</span><span class="op">)</span></span></code></pre></div>
-<p>Automatically add <code>name</code>, <code>type</code> and <code>enum</code> schema to each column in the data based on their class:</p>
+<p>Automatically add <code>name</code>, <code>type</code> and
+<code>enum</code> schema to each column in the data based on their
+class:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_type_attrs.html">add_type_attrs</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span></code></pre></div>
-<p>Like for descriptors, there is a helper function to retrieve schema as a tibble:</p>
+<p>Like for descriptors, there is a helper function to retrieve schema
+as a tibble:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>knitr.kable.NA <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/glimpse_schema.html">glimpse_schema</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
+<colgroup>
+<col width="9%">
+<col width="13%">
+<col width="45%">
+<col width="9%">
+<col width="22%">
+</colgroup>
 <thead><tr class="header">
 <th align="left">name</th>
 <th align="left">title</th>
@@ -212,13 +246,19 @@
 <div class="section level2">
 <h2 id="writing-a-tabular-data-resource-to-disk">Writing a tabular-data-resource to disk<a class="anchor" aria-label="anchor" href="#writing-a-tabular-data-resource-to-disk"></a>
 </h2>
-<p>Once metadata is set in the tibble’s attributes, we can save the tabular data resource as a CSV file with an accompanying tabular-data-resource.yaml:</p>
+<p>Once metadata is set in the tibble’s attributes, we can save the
+tabular data resource as a CSV file with an accompanying
+tabular-data-resource.yaml:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/write_tdr_csv.html">write_tdr_csv</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> created <span style="color: #0000BB;">/home/runner/work/CODECtools/CODECtools/vignettes/mydata</span>/</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> wrote data to <span style="color: #0000BB;">/home/runner/work/CODECtools/CODECtools/vignettes/mydata/mydata.csv</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> wrote metadata to <span style="color: #0000BB;">/home/runner/work/CODECtools/CODECtools/vignettes/mydata/tabular-data-resource.yaml</span></span></span></code></pre></div>
-<p>The <code>name</code> attribute of the supplied tibble is used as the name of a newly created folder <em>and</em> CSV file containing the data. Metadata extracted from the supplied tibble’s attributes is saved in a <code>tabular-data-resource.yaml</code> file that lives alongside the data file in the newly created directory:</p>
+<p>The <code>name</code> attribute of the supplied tibble is used as the
+name of a newly created folder <em>and</em> CSV file containing the
+data. Metadata extracted from the supplied tibble’s attributes is saved
+in a <code>tabular-data-resource.yaml</code> file that lives alongside
+the data file in the newly created directory:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/dir_tree.html" class="external-link">dir_tree</a></span><span class="op">(</span><span class="st">"mydata"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #0000BB; font-weight: bold;">mydata</span></span></span>
@@ -228,7 +268,8 @@
 <div class="section level2">
 <h2 id="reading-a-tabular-data-resource-from-disk">Reading a tabular-data-resource from disk<a class="anchor" aria-label="anchor" href="#reading-a-tabular-data-resource-from-disk"></a>
 </h2>
-<p>We can then read this tabular-data-package back into R and restore its attributes, as well as its column classes:</p>
+<p>We can then read this tabular-data-package back into R and restore
+its attributes, as well as its column classes:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_tdr_csv.html">read_tdr_csv</a></span><span class="op">(</span><span class="st">"mydata"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> read in data from <span style="color: #0000BB;">mydata/mydata.csv</span></span></span>

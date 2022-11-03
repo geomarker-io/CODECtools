@@ -85,52 +85,103 @@
 <div class="section level3">
 <h3 id="metadata">Metadata<a class="anchor" aria-label="anchor" href="#metadata"></a>
 </h3>
-<p>Metadata is information <em>about</em> data, but does not contain the data itself. For example, a CSV file cannot tell R (or other software) anything about itself including:</p>
+<p>Metadata is information <em>about</em> data, but does not contain the
+data itself. For example, a CSV file cannot tell R (or other software)
+anything about itself including:</p>
 <ul>
-<li>general information like a name, title, description, license, or related URL</li>
+<li>general information like its name, title, description, or
+homepage</li>
 <li>how missing values are denoted</li>
 <li>column names, titles, types, formats, and constraints</li>
-<li>specific CSV “dialect” characteristics required to read it (e.g. delimiter, encoding, quoting)</li>
+<li>specific CSV “dialect” characteristics required to read it
+(e.g. encoding, quoting)</li>
 </ul>
-<p>CODEC utilizes a specific set of standards to store community-level data in an effort to make them more interoperable and reusable.</p>
+<p>CODEC utilizes a specific set of standards to store community-level
+data in an effort to make them more interoperable and reusable.</p>
 </div>
 <div class="section level3">
 <h3 id="frictionless-standards">Frictionless Standards<a class="anchor" aria-label="anchor" href="#frictionless-standards"></a>
 </h3>
-<p><a href="https://frictionlessdata.io/" class="external-link">Frictionless</a> standards are a set of <a href="https://specs.frictionlessdata.io/" class="external-link">patterns</a> for describing data, including datasets, files, and tables. These metadata are contained in a specific file (separate from the data file), usually written in JSON or YAML, that describes something specific to each Frictionless Standard.</p>
-<p>The CODEC metadata standards are based on the Frictionless <a href="https://specs.frictionlessdata.io/tabular-data-resource/" class="external-link">Tabular Data Resource</a> standards (often written as ‘tabular-data-resource’ and abbreviated throughout the package as <code>tdr</code>), which is composed of three Frictionless standards:</p>
+<p><a href="https://frictionlessdata.io/" class="external-link">Frictionless</a> standards are
+a set of <a href="https://specs.frictionlessdata.io/" class="external-link">patterns</a> for
+describing data, including datasets, files, and tables. These metadata
+are contained in a specific file (separate from the data file), usually
+written in JSON or YAML, that describes something specific to each
+Frictionless Standard.</p>
+<p>The CODEC metadata standards are based on the Frictionless <a href="https://specs.frictionlessdata.io/tabular-data-resource/" class="external-link">Tabular
+Data Resource</a> standards (often written as ‘tabular-data-resource’
+and abbreviated throughout the package as <code>tdr</code>), which is
+composed of three Frictionless standards:</p>
 <ol style="list-style-type: decimal">
 <li>
-<a href="https://specs.frictionlessdata.io/data-resource/" class="external-link">Data Resource</a>: describes an exact tabular file providing a path to the file and details like name, title, description, and more</li>
+<a href="https://specs.frictionlessdata.io/data-resource/" class="external-link">Data
+Resource</a>: describes an exact tabular file providing a path to the
+file and details like name, title, description, and more</li>
 <li>
-<a href="https://specs.frictionlessdata.io/table-schema/" class="external-link">Table Schema</a>: describes a tabular file by providing its dimension, field data types, relations, and constraints</li>
+<a href="https://specs.frictionlessdata.io/table-schema/" class="external-link">Table
+Schema</a>: describes a tabular file by providing its dimension, field
+data types, relations, and constraints</li>
 <li>
-<a href="https://specs.frictionlessdata.io/csv-dialect/" class="external-link">CSV dialect</a>: describes the various dialects of CSV files, including terminator strings, quoting rules, escape rules, etc.</li>
+<a href="https://specs.frictionlessdata.io/csv-dialect/" class="external-link">CSV
+dialect</a>: describes the various dialects of CSV files, including
+terminator strings, quoting rules, escape rules, etc.</li>
 </ol>
-<p>A tabular-data-resource consists of (1) a <em>single</em> table of data in a CSV file and (2) its metadata, represented as a hierarchical list in a specific format. On disk, this metadata is stored as a YAML file and in R, it is stored in the attributes of a data.frame (or tibble). <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;This is a good place to note that although not used here, the &lt;a href="https://specs.frictionlessdata.io/data-package/" class="external-link"&gt;Data Package&lt;/a&gt; &amp;amp; &lt;a href="https://specs.frictionlessdata.io/tabular-data-package/" class="external-link"&gt;Tabular Data Package&lt;/a&gt; are similar to the Data Resource and Tabular Data Resource, except that they describe a &lt;em&gt;collection&lt;/em&gt; of tabular files.&lt;/p&gt;'><sup>1</sup></a></p>
+<p>A tabular-data-resource consists of (1) a <em>single</em> table of
+data in a CSV file and (2) its metadata, represented as a hierarchical
+list in a specific format. On disk, this metadata is stored as a YAML
+file and in R, it is stored in the attributes of a data.frame (or
+tibble). <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;This is a good place to note that although not used
+here, the &lt;a href="https://specs.frictionlessdata.io/data-package/" class="external-link"&gt;Data
+Package&lt;/a&gt; &amp;amp; &lt;a href="https://specs.frictionlessdata.io/tabular-data-package/" class="external-link"&gt;Tabular
+Data Package&lt;/a&gt; are similar to the Data Resource and Tabular Data
+Resource, except that they describe a &lt;em&gt;collection&lt;/em&gt; of tabular
+files.&lt;/p&gt;'><sup>1</sup></a></p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="codec-metadata-standards">CODEC Metadata Standards<a class="anchor" aria-label="anchor" href="#codec-metadata-standards"></a>
 </h2>
 <blockquote>
-<p><em>Language:</em> The keywords “MUST”, “MUST NOT”, “SHOULD”, “SHOULD NOT”, and “MAY” in this document are to be interpreted as described in <a href="https://tools.ietf.org/html/rfc2119" class="external-link">RFC 2119</a>.</p>
+<p><em>Language:</em> The keywords “MUST”, “MUST NOT”, “SHOULD”, “SHOULD
+NOT”, and “MAY” in this document are to be interpreted as described in
+<a href="https://tools.ietf.org/html/rfc2119" class="external-link">RFC 2119</a>.</p>
 </blockquote>
 <blockquote>
-<p>CODEC standards are versioned with {CODECtools}, so this vignette describes version 0.2.0.</p>
+<p>CODEC standards are versioned with {CODECtools}, so this vignette
+describes version 0.2.0.</p>
 </blockquote>
 <div class="section level3">
 <h3 id="tabular-data-resource-metadata">Tabular-Data-Resource Metadata<a class="anchor" aria-label="anchor" href="#tabular-data-resource-metadata"></a>
 </h3>
-<p>The metadata of a CODEC tabular-data-resource is hierarchically composed of different <strong>descriptors</strong> :</p>
+<p>The metadata of a CODEC tabular-data-resource is hierarchically
+composed of different <strong>descriptors</strong> :</p>
 <p><img src="codec_metadata.png"></p>
 <ul>
-<li><p><strong>property</strong> (or <a href="https://specs.frictionlessdata.io/data-resource/#metadata-properties" class="external-link">“metadata property”</a>) are named values used to describe the data resource. The value of most <em>properties</em> are a single character string (e.g., <code>name = "my_data"</code>), but some are lists.</p></li>
-<li><p><strong>schema</strong> (or <a href="https://specs.frictionlessdata.io/table-schema/" class="external-link">“table schema”</a>) is a special <em>property</em> that is a list of information about the <strong>fields</strong> (or columns) in a tabular-data-resource. <em>schema</em> includes a list of <em>fields</em>, as well as the value used to denote missingness and which <em>fields</em> are primary or foreign keys.</p></li>
-<li><p><strong>fields</strong> (or <a href="https://specs.frictionlessdata.io/table-schema/#field-descriptors" class="external-link">“field descriptors”</a>) are a special <em>schema descriptor</em> that is a list of each the <em>fields</em> in a tabular-data-resource, each with different <em>descriptors</em> containing <em>field</em>-specific information.</p></li>
-<li><p><strong>dialect</strong> (or <a href="https://specs.frictionlessdata.io/csv-dialect/" class="external-link">“CSV dialect”</a>) is another special <em>property</em> that stores information about the formatting of the data CSV file. The <a href="./codec-data#codec-data-standards">CODEC data standards</a> specify that data CSV files must follow the <a href="https://www.rfc-editor.org/rfc/rfc4180" class="external-link">RFC 4180</a> standard for CSV files. Thus, the <code>dialect</code> descriptor is omitted from the CODEC tabular-data-resource standards.</p></li>
+<li><p><strong>property</strong> (or <a href="https://specs.frictionlessdata.io/data-resource/#metadata-properties" class="external-link">“metadata
+property”</a>) are named values used to describe the data resource. The
+value of most <em>properties</em> are a single character string (e.g.,
+<code>name = "my_data"</code>), but some are lists.</p></li>
+<li><p><strong>schema</strong> (or <a href="https://specs.frictionlessdata.io/table-schema/" class="external-link">“table
+schema”</a>) is a special <em>property</em> that is a list of
+information about the <strong>fields</strong> (or columns) in a
+tabular-data-resource. <em>schema</em> includes a list of
+<em>fields</em>, as well as the value used to denote missingness and
+which <em>fields</em> are primary or foreign keys.</p></li>
+<li><p><strong>fields</strong> (or <a href="https://specs.frictionlessdata.io/table-schema/#field-descriptors" class="external-link">“field
+descriptors”</a>) are a special <em>schema descriptor</em> that is a
+list of each of the <em>fields</em> in a tabular-data-resource, each
+with different <em>descriptors</em> containing <em>field</em>-specific
+information.</p></li>
+<li><p><strong>dialect</strong> (or <a href="https://specs.frictionlessdata.io/csv-dialect/" class="external-link">“CSV dialect”</a>)
+is another special <em>property</em> that stores information about the
+formatting of the data CSV file. The <a href="codec-data.html#codec-data-standards">CODEC data standards</a>
+require specific <strong>dialect</strong> values so that the
+<code>dialect</code> descriptor is not required for a CODEC
+tabular-data-resource.</p></li>
 </ul>
-<p>A CODEC tabular-data-resource MUST contain <code>name</code> and <code>path</code> descriptors. All other properties, schema, and fields MAY be present, but MUST be one of:</p>
+<p>A CODEC tabular-data-resource MUST contain <code>name</code> and
+<code>path</code> descriptors. All other properties, schema, and fields
+MAY be present, but MUST be one of:</p>
 <pre><code><span><span class="co">## `summarise()` has grouped output by 'type'. You can override using the</span></span>
 <span><span class="co">## `.groups` argument.</span></span></code></pre>
 <table class="table">
@@ -148,23 +199,29 @@
 <tr class="odd">
 <td align="left">property</td>
 <td align="left">profile</td>
-<td align="left">profile of this descriptor (always set to <code>tabular-data-resource</code> here)</td>
+<td align="left">profile of this descriptor (always set to
+<code>tabular-data-resource</code> here)</td>
 </tr>
 <tr class="even">
 <td align="left">property</td>
 <td align="left">name</td>
-<td align="left">an identifier string composed of lower case alphanumeric characters, <code>_</code>, <code>-</code>, and <code>.</code>
+<td align="left">an identifier string composed of lower case
+alphanumeric characters, <code>_</code>, <code>-</code>, and
+<code>.</code>
 </td>
 </tr>
 <tr class="odd">
 <td align="left">property</td>
 <td align="left">path</td>
-<td align="left">location of data associated with resource as a <a href="https://en.wikipedia.org/wiki/Path_%28computing%29#POSIX_pathname_definition" class="external-link">POSIX path</a> relative to the <code>tabular-data-resource.yaml</code> file or a fully qualified URL</td>
+<td align="left">location of data associated with resource as a <a href="https://en.wikipedia.org/wiki/Path_%28computing%29#POSIX_pathname_definition" class="external-link">POSIX
+path</a> relative to the <code>tabular-data-resource.yaml</code> file or
+a fully qualified URL</td>
 </tr>
 <tr class="even">
 <td align="left">property</td>
 <td align="left">version</td>
-<td align="left">semantic <a href="https://specs.frictionlessdata.io/patterns/#data-package-version" class="external-link">version</a> of the data resource</td>
+<td align="left">semantic <a href="https://specs.frictionlessdata.io/patterns/#data-package-version" class="external-link">version</a>
+of the data resource</td>
 </tr>
 <tr class="odd">
 <td align="left">property</td>
@@ -174,7 +231,8 @@
 <tr class="even">
 <td align="left">property</td>
 <td align="left">homepage</td>
-<td align="left">homepage on the web related to the data; ideally a code repository used to create the data</td>
+<td align="left">homepage on the web related to the data; ideally a code
+repository used to create the data</td>
 </tr>
 <tr class="odd">
 <td align="left">property</td>
@@ -189,32 +247,38 @@
 <tr class="odd">
 <td align="left">property</td>
 <td align="left">_s3VersionId</td>
-<td align="left">the VersionId of the file stored on AWS S3; not user-generated</td>
+<td align="left">the VersionId of the file stored on AWS S3; not
+user-generated</td>
 </tr>
 <tr class="even">
 <td align="left">schema</td>
 <td align="left">fields</td>
-<td align="left">a list object as long as the number of fields each containing the items in fields</td>
+<td align="left">a list object as long as the number of fields each
+containing the items in fields</td>
 </tr>
 <tr class="odd">
 <td align="left">schema</td>
 <td align="left">primaryKey</td>
-<td align="left">a field or set of fields that uniquely identifies each row</td>
+<td align="left">a field or set of fields that uniquely identifies each
+row</td>
 </tr>
 <tr class="even">
 <td align="left">schema</td>
 <td align="left">foreignKey</td>
-<td align="left">a field or set of fields that connect to a separate table</td>
+<td align="left">a field or set of fields that connect to a separate
+table</td>
 </tr>
 <tr class="odd">
 <td align="left">schema</td>
 <td align="left">missingValues</td>
-<td align="left">a list object, one for each column, containing the following</td>
+<td align="left">a list object, one for each column, containing the
+following</td>
 </tr>
 <tr class="even">
 <td align="left">fields</td>
 <td align="left">name</td>
-<td align="left">machine-friendly name of field/column; must be identical to name of column in data CSV file</td>
+<td align="left">machine-friendly name of field/column; must be
+identical to name of column in data CSV file</td>
 </tr>
 <tr class="odd">
 <td align="left">fields</td>
@@ -230,13 +294,16 @@
 <td align="left">fields</td>
 <td align="left">type</td>
 <td align="left">
-<a href="https://specs.frictionlessdata.io/table-schema/#types-and-formats" class="external-link">Frictionless type</a> of the field/column (e.g., string, number, boolean)</td>
+<a href="https://specs.frictionlessdata.io/table-schema/#types-and-formats" class="external-link">Frictionless
+type</a> of the field/column (e.g., string, number, boolean)</td>
 </tr>
 <tr class="even">
 <td align="left">fields</td>
 <td align="left">constraints</td>
 <td align="left">
-<a href="https://specs.frictionlessdata.io/table-schema/#constraints" class="external-link">Frictionless constraints</a>, including <code>enum</code>, an array of possible values or factor levels</td>
+<a href="https://specs.frictionlessdata.io/table-schema/#constraints" class="external-link">Frictionless
+constraints</a>, including <code>enum</code>, an array of possible
+values or factor levels</td>
 </tr>
 </tbody>
 </table>
